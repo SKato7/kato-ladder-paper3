@@ -1,13 +1,13 @@
 {
-  "title": "Kato Ladder: Seventy Thousand Years of Human Coordination and a Civilizational Ontology of Six Realized Phase Transitions — Paper 3 submission snapshot",
-  "description": "Reproducibility archive for Paper 3 (NHB submission). Includes main manuscript (V65), Supplementary Information (V76), reference bibliography (V13), cover letter (V17), significance statement (V1), title page (V4), graphical abstract (V1, vector + raster), and figures Fig. 1–4. Data directory contains the 28-anchor compressed-timeline backbone and the Eq.(2) rank-2 sensitivity envelope output; code directory contains the build scripts for the graphical abstract and for the Fig. 3 / Fig. 4 panels. Seven-axis falsifier battery raw outputs are included for replication of the [2028.4, 2034.4] CE forecast window.",
+  "title": "Kato Ladder: Seventy Thousand Years of Human Coordination and a Civilizational Ontology of Six Realized Phase Transitions  EPaper 3 submission snapshot",
+  "description": "Reproducibility archive for Paper 3 (NHB submission). Includes main manuscript (V65), Supplementary Information (V76), reference bibliography (V13), cover letter (V17), significance statement (V1), title page (V4), graphical abstract (V1, vector + raster), and figures Fig. 1 E. Data directory contains the 28-anchor compressed-timeline backbone and the Eq.(2) rank-2 sensitivity envelope output; code directory contains the build scripts for the graphical abstract and for the Fig. 3 / Fig. 4 panels. Seven-axis falsifier battery raw outputs are included for replication of the [2028.4, 2034.4] CE forecast window.",
   "upload_type": "publication",
   "publication_type": "article",
   "creators": [
     {
       "name": "Kato, Shota",
       "affiliation": "AI and Future Co., Ltd., Tokyo, Japan",
-      "orcid": "0000-0000-0000-0000"
+      "orcid": "0009-0007-6001-3267"
     }
   ],
   "keywords": [

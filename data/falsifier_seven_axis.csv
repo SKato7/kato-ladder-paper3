@@ -1,0 +1,8 @@
+axis_id,axis_name,null_hypothesis,test_statistic,rejection_threshold,current_observed_value,status
+1,population_ceiling_breach,"H=6 ceiling log10_N < 9.95 holds through 2034.4","max observed log10_N by 2034.4",9.96,9.90,pending
+2,demographic_regulation_reversal,"post-1963 regulated regime remains active","fertility rate deviation from regulated trajectory",">0.5 child/woman absolute",pending,pending
+3,institutional_capacity_collapse,"H=6 institutional backbone intact","governance-effectiveness index year-on-year drop",">2 sigma three-year mean",pending,pending
+4,coordination_substrate_rupture,"networked computation layer continues scaling","global compute-FLOPS annual growth reversal","<0 two-year rolling mean",pending,pending
+5,ai_h7_nucleation_signature,"no measurable H=6->7 nucleation within [2028.4, 2034.4]","order-parameter departure from null regime",">3 sigma on joint axes 4+6",pending,pending
+6,generative_capacity_growth,"AI-augmented coordination yields no phase change","economic output / aggregate compute ratio trajectory",">30% shift within 18 months",pending,pending
+7,composite_rejection,"at least six of axes 1-6 fire by 2034.4","count(rejected_axes) at T=2034.4",">=6",0,pending

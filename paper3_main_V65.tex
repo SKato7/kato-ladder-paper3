@@ -1,0 +1,1122 @@
+
+% Paper 3 main V65 — V64 + bib V10→V13 bump (wave50 patchset §1)
+% Source base: paper3_main_V64.tex.txt (K10_118.0 Canvas artifact) + paper3_refs_V13.bib.txt
+% V64 reframe body preserved intact; only \bibliography line advanced to V13.
+% 2026-04-20 by 加藤方程式１０－６
+
+\documentclass[11pt]{article}
+\usepackage[letterpaper, top=1.5cm, bottom=1.8cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[switch]{lineno}
+
+% --- Theorem environments ---
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+
+% --- Spacing ---
+\setlength{\parskip}{3pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\renewcommand{\arraystretch}{1.15}
+
+% --- Macros ---
+\newcommand{\topen}{t_k^{\mathrm{open}}}
+\newcommand{\thalf}{t_k^{\mathrm{half}}}
+\newcommand{\ROI}{\mathrm{ROI}}
+\newcommand{\VF}{V_{\mathrm F}}
+
+% --- No default title/date ---
+\date{}
+\author{}
+\title{}
+
+\begin{document}
+\linenumbers
+\pagestyle{plain}
+
+% ================================================================
+% PAGE 1: Title block
+% ================================================================
+\begin{center}
+{\LARGE\bfseries After von Foerster:}\\[4pt]
+{\LARGE\bfseries Seventy Thousand Years of Human Coordination on the Kato Ladder,}\\[3pt]
+{\LARGE\bfseries and a Civilizational Ontology of Six Realized Phase Transitions}\\[8pt]
+{\color{gray}\normalsize Pairwise growth, ceiling replacement, a non-terminal \(H{=}6\), and an open \(H{=}7\) substrate question}\\[6pt]
+{\small Shota Kato\textsuperscript{1}}\\[1pt]
+{\footnotesize\textsuperscript{1}AI and Future Co., Ltd., Tokyo, Japan}\\[1pt]
+{\footnotesize\texttt{founder@aiandfuture.co.jp}}
+\end{center}
+\vspace{3pt}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{1pt}
+
+\begin{center}
+{\normalsize\bfseries Abstract}
+\end{center}
+\vspace{-4pt}
+{\small\noindent
+World population history is usually written either as a descriptive sequence of disconnected historical episodes or as a smooth growth law with changing parameters.
+We instead argue that the 70,000-year record reveals a discrete civilizational ontology: a Kato ladder with realized states \(H\in\{0,1,2,3,4,5,6\}\), each entered by a phase transition and each governed by the same pairwise \(N^2\) backbone under a different active ceiling.
+Three structural ingredients are sufficient to select this ladder: the pre-\(H{=}3\) bifurcation kernel \(K_{P3}\), the rational survival weight \(\eta(H)=L_{\mathrm{exo}}/[L_{\mathrm{exo}}+\tau_{\mathrm{endo}}(H)]\), and the exogenous status of the social-friction envelope \(V_F\), whose endogenous closures are knife-edge unstable and generically overproduce collapses.
+The resulting picture makes six phase transitions historical facts rather than post hoc labels.
+It also implies that the present \(H{=}6\) regime is non-terminal: the secular waiting-time compression law places its internal saturation at 2031.4~CE (95\% CI, \(\pm 3\)~yr), so a further rung is structurally required unless collapse, arrest, or inversion intervenes.
+What realizes the prospective \(H{=}7\) substrate is left open here.
+}
+
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{4pt}
+
+% ================================================================
+% Hero equation
+% ================================================================
+\begin{tcolorbox}[ colback=blue!5!white, colframe=blue!25!white, arc=3pt, boxrule=0.4pt, left=8pt, right=8pt, top=6pt, bottom=4pt]
+\begin{equation}
+\frac{dN}{dt} = a_0\, N^{2}
+\label{eq:backbone}
+\end{equation}
+\end{tcolorbox}
+
+\noindent{\footnotesize Backbone fit: \(a_0 = 4.74 \times 10^{-12}\), \(R^2 = 0.976\), \(n = 28\) (\(-\)10k BCE -- 2024 CE).}
+\vspace{2pt}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\textwidth]{fig_6phase_vf_vF_overlay_v2.png}
+\caption{
+\textbf{Seventy thousand years of world population growth, with two realized collapses and a non-terminal present regime, captured by a single \(N^2\) backbone.}
+World population is plotted in von Foerster coordinates (\(x=-\log_{10}(2027-t)\), \(y=\log_{10}N\); \(t\) in calendar year CE, \(N\) in millions).
+The green curve is the fitted exogenous-\(V_F\) simulation (\(dN/dt=a_0N^2\), \(R^2=0.976\), \(n=28\)) with frozen collapse intervals.
+Black points: corrected Biraben 28-point calibration set.
+Red dashed curve: social-friction ceiling \(V_F(t)\).
+Colored bands mark the six realized \(\Omega\)-regimes:
+\(\Omega_{\mathrm{compete}}\),
+\(\Omega_{\mathrm{land}}\),
+\(\Omega_{\mathrm{food,pre}}\),
+\(\Omega_{\mathrm{food,post}}\),
+\(\Omega_{\mathrm{social}}\), and
+\(\Omega_{\mathrm{longlife}}\).
+Orange bands mark the two realized collapse windows.
+The twentieth-century near-miss is labeled at peak ratio \(N/V_F=1.388\) in 1992.
+A vertical shaded band at 2031.4~CE (95\% CI: \(\pm 3.0\)~yr), computed from Eq.~\eqref{eq:h_accel}, marks the candidate window for exit from the present \(H{=}6\) regime; persistence of the same rung beyond the upper bound would falsify the secular acceleration law.
+}
+\label{fig:trajectory}
+\end{figure}
+
+% ================================================================
+\section{Introduction}
+
+In 1960, von Foerster, Mora, and Amiot~\cite{vonfoerster1960}
+published in \textit{Science}
+a world-population fit of the form
+\(N(t) \propto (t_s-t)^{-1}\),
+with a celebrated singularity date in late 2026.
+The enduring importance of that paper is not the exact day.
+It is the recognition that, over long horizons,
+human growth looks hyperbolic,
+not exponential,
+and that the relevant question is why the singular continuation fails.
+
+The present paper answers that question by changing the level of description.
+Instead of treating history as a smooth growth law with one or two regime breaks,
+we treat it as a discrete ladder of civilizational states.
+On the source-faithful reading developed in the present main text and SI,
+the 70,000-year record is most naturally indexed by
+\(H=0\) (boundary-side pre-linguistic \emph{Homo sapiens}),
+\(H=1\) (language and symbolic cognition),
+\(H=2\) (agriculture),
+\(H=3\) (writing and urbanisation),
+\(H=4\) (printing and industrial mechanisation),
+\(H=5\) (computer and networked infrastructure),
+and \(H=6\) (the present saturated compute regime).
+These are not futurist milestones.
+They are historically anchored relay states recoverable from archaeology,
+historical demography,
+and technology history,
+as summarized independently in the SI milestone ledger.
+
+This ladder is not only descriptive.
+The point of the present reframe is that it is also ontological.
+Each rung corresponds to a distinct class of stabilized relay architecture,
+and each advance is phase-like rather than continuous.
+Pre-H3 history is governed by the bifurcation kernel
+\(K_{P3}\),
+which separates the continuous accumulation of coalition-scale inheritance
+from the hard gate of external symbolic memory.
+Post-H3 history is governed by ceiling replacement:
+food,
+social friction,
+and demographic suppression act successively on the same pairwise
+\(N^2\) backbone.
+Under this reading,
+what changes across 70,000 years is not the engine,
+but the active relay ceiling and the stabilized rung that the system can sustain.
+
+The present moment has a special status within this ontology.
+The industrial,
+information,
+and network revolutions are already realized facts.
+The post-1963 demographic transition,
+recalibrated in the main model as a 75-year logistic suppression of
+\(L_{\mathrm{pop}}\),
+shows that the modern slowdown is not a collapse of the pairwise law,
+but the internal signature of a new rung.
+The observed post-1970 fertility bend belongs to this same phase:
+it is evidence that the present regime carries its own internal time constant,
+not that civilization has reached a stable endpoint.
+The relevant question is therefore no longer whether the von Foerster continuation fails.
+It is whether the present \(H{=}6\) state is terminal.
+
+Our thesis is twofold.
+First,
+under three structural conditions---the pre-H3 bifurcation kernel
+\(K_{P3}\),
+the rational survival weight
+\(\eta(H)=L_{\mathrm{exo}}/[L_{\mathrm{exo}}+\tau_{\mathrm{endo}}(H)]\),
+and the exogenous status of the social-friction envelope
+\(V_F\)---the discrete ladder
+\(H\in\{0,1,2,3,4,5,6\}\)
+emerges uniquely from the 70,000-year record.
+Second,
+\(H{=}6\) is not an endpoint.
+The secular waiting-time compression law identifies a sharp candidate window in which the present rung must either give way,
+fail,
+or invert.
+If collapse,
+arrest,
+and retrogression are all excluded,
+then a further rung is structurally required.
+What realizes that prospective \(H{=}7\) substrate is explicitly left open here.
+
+This framing also clarifies the division of labor inside the manuscript.
+Section~2 revisits the Kato equation as the temporal backbone of a discrete ladder rather than as a stand-alone fit,
+and states the Kato Ladder Uniqueness theorem.
+Section~3 retains the Humanness theorem as the structural criterion that closes the human \(H\ge 3\) branch.
+Section~4 reinterprets Eq.~\eqref{eq:h_accel} as the internal saturation time of the present rung.
+Section~5 gathers the empirical anchors,
+including the Paleolithic 70,000-year reconstruction and the fossil backward check.
+Section~6 turns the timing result into a forecast problem.
+Section~7 isolates the one question that the present paper does not answer:
+what the supporting substrate of \(H{=}7\) actually is.
+
+% ================================================================
+\section{Kato equation revisited}
+
+At the broadest level,
+this paper is about the temporal analogue of a familiar scaling problem.
+Bettencourt-style urban scaling asks why observables occupy recurrent exponent classes rather than arbitrary slopes.
+The present paper asks the same question longitudinally:
+why does civilization history occupy recurrent relay states rather than a continuous family of growth laws?
+The Kato equation supplies the backbone;
+the ladder supplies the ontology.
+
+\subsection{Backbone and the exogenous ceiling problem}\label{sec:theorem}
+
+The temporal backbone is the pairwise law already stated in Eq.~\eqref{eq:backbone}.
+Its structural meaning is simple:
+in any open coordination system where the leading productive encounters are dyadic,
+the count of possible interaction channels scales as
+\(N(N-1)/2\sim N^2\).
+The main paper therefore does not treat \(p=2\) as a fitted exponent chosen because it happens to work.
+It treats \(p=2\) as the leading combinatorial term,
+with deviations from the raw hyperbola interpreted as ceiling effects.
+That point matters because a century-scale slowdown can then be read as ceiling replacement rather than as collapse of the interaction law itself.
+
+The reduced-form ceiling that matters most in the present paper is the social-friction envelope,
+written as
+\begin{equation}
+V_F(t)=C\,(t_c-t)^{-\alpha}.
+\label{eq:vf}
+\end{equation}
+The source-supported reason for keeping this envelope exogenous is not convenience.
+It is structural necessity.
+Across the admissible class of smooth,
+positive,
+monotone endogenous closures
+\(V_F=f(N,\Omega)\),
+the calibration map becomes knife-edge ill-conditioned:
+the baseline Jacobian condition number is
+\(\kappa(J)\approx 1.19\times 10^5\),
+and the instability is robust across tested families.
+At the same time,
+endogenous closures generically overproduce collapse events:
+in the documented 500-draw protocol,
+97.4\% of accepted draws generate at least three collapse episodes,
+whereas the historical record supports exactly two realized major collapse windows.
+The exogenous envelope is therefore not an interpretive luxury.
+It is the only reduced-form choice in the present file stack that preserves both numerical conditioning and the observed collapse count without fine tuning.
+
+This exogeneity result should be read carefully.
+It does not say that institutions,
+public health,
+or accumulated social knowledge are irrelevant.
+On the contrary,
+those are the historical contents of \(V_F\).
+What it says is that,
+for the purposes of the present demographic ODE,
+that content cannot be closed back into the same
+\(N^2\)-driven state variables without destroying the calibration geometry.
+A deeper mechanism may still exist.
+It is simply not an admissible closure of the Level~1 reduced-form system analyzed here.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.48\textwidth]{fig_vf_exogeneity_knifeedge.pdf}
+\caption{
+\textbf{Knife-edge instability of endogenous closures.}
+Condition number \(\kappa(J)\) of the calibration Jacobian (left axis,
+log scale) and number of collapse events (right axis) as a function of the endogenous coupling strength \(a_{\mathrm{vf}}\).
+Under endogenous \(V_F\),
+\(\kappa\) exceeds \(10^5\) and at least three collapses are produced generically;
+the exogenous specification (\(a_{\mathrm{vf}}=0\),
+vertical dashed line) breaks this degeneracy and restores exactly the two realized historical collapse windows.
+}
+\label{fig:vf_exo}
+\end{figure}
+
+\subsection{Kato Ladder Uniqueness / Civilizational Ontology theorem}
+
+The exogenous ceiling result explains why the backbone must be written with a reduced-form envelope.
+It does not yet explain why the historical states themselves are discrete.
+For that we need two further ingredients.
+The first is the pre-H3 bifurcation kernel,
+which sharpens the Humanness theorem dynamically:
+\begin{equation}
+K_{P3}(t)=\mathbf{1}_{C_1}\cdot N(t)\cdot G_{C_2}(t)\cdot \mathbf{1}_{C_3\ge C_3^{\ast}}.
+\label{eq:kp3}
+\end{equation}
+The second is the per-rung survival factor,
+which assigns the same rational form to biological and civilizational substrates:
+\begin{equation}
+\eta(H)=\frac{L_{\mathrm{exo}}}{L_{\mathrm{exo}}+\tau_{\mathrm{endo}}(H)}.
+\label{eq:eta_main}
+\end{equation}
+Here \(K_{P3}\) determines whether a lineage can escape the pre-H3 stall corridor,
+while \(\eta(H)\) weights the temporal viability of each rung once it exists.
+Together with exogenous \(V_F\),
+these objects make the ladder discrete,
+ordered,
+and historically non-degenerate.
+
+\begin{theorem}[Kato Ladder Uniqueness / Civilizational Ontology]
+\label{thm:ladder-uniqueness}
+Assume
+(i) the pairwise backbone
+\(\dot N=a_0N^2\),
+(ii) the pre-H3 escape kernel
+\(K_{P3}(t)=\mathbf{1}_{C_1}N(t)G_{C_2}(t)\mathbf{1}_{C_3\ge C_3^{\ast}}\),
+(iii) the rational survival weight
+\(\eta(H)=L_{\mathrm{exo}}/[L_{\mathrm{exo}}+\tau_{\mathrm{endo}}(H)]\),
+and
+(iv) an exogenous social-friction envelope,
+required because broad endogenous closures are knife-edge unstable and generically overproduce collapses.
+Then the minimal ontology consistent with the 70,000-year record is a discrete ladder of realized states
+\(H\in\{0,1,2,3,4,5,6\}\).
+The state sequence is unique up to historical instantiation,
+each step is phase-like rather than continuous,
+and the present \(H{=}6\) regime is non-terminal:
+if collapse,
+arrest,
+and inversion are all excluded,
+the only admissible continuation is a prospective \(H{=}7\) regime.
+The supporting substrate of that regime is not identified in the present paper.
+\end{theorem}
+
+\noindent\textit{Proof sketch.}
+The lower half of the ladder is discrete because the pre-H3 kernel is discrete.
+\(H{=}0\) is a boundary-side state rather than an in-chain well:
+a biological population exists,
+but no stabilized relay layer has yet formed.
+\(H{=}1\) is the first relay-bearing basin,
+entered once symbolic cognition and behavioral modernity stabilize.
+\(H{=}2\) is the agrarian relay,
+and \(H{=}3\) is not reached continuously but only when the
+\(C_3\) external-memory gate closes.
+No pair among
+\(C_1\),
+\(C_2\),
+and \(C_3\)
+is sufficient,
+so the pre-H3 corridor cannot be collapsed into a smooth one-parameter family without losing the observed stall structure.
+
+The upper half of the ladder is discrete because the historical record locks it to realized relay substitutions rather than to arbitrary trend breaks.
+The milestone cross-check isolates printing/industrial mechanisation,
+computer/networked infrastructure,
+and the present saturated-compute regime as distinct rungs,
+not mere accelerations of the same state.
+Exogenous \(V_F\) is what prevents these from being reabsorbed into a continuous endogenous envelope,
+and \(\eta(H)\) assigns a monotone temporal weight to each rung without altering the discrete state count.
+Any attempt to compress the ontology into fewer than seven realized states loses either the pre-H3 gate structure,
+the two historical collapse windows,
+or the independent milestone ledger.
+A detailed constructive derivation,
+including the no-skip logic and milestone-locking conditions,
+is deferred to SI Appendix~\ref{sec:S-LadderUniqueness}.
+
+% ================================================================
+\section{Humanness theorem}\label{sec:humanness}
+
+The Kato ladder is not only a chronology.
+It also sharpens the human-specific claim of the paper.
+The decisive boundary is \(H\ge 3\):
+not the first use of tools,
+nor sociality alone,
+but the first stabilized relay depth that requires cumulative inheritance plus memory outside the brain.
+That boundary is captured by the Humanness theorem,
+which remains unchanged in its core form from V63.
+
+\begin{theorem}[Humanness of \(H\ge 3\)]
+\label{thm:humanness}
+Let \(\mathcal{S}\) be an open multi-individual coordination system whose relay architecture is reproduced endogenously across generations,
+and let \(H_{\mathrm{net}}(\mathcal{S},t)\in\mathbb{N}\) denote its native integer relay depth within the present reduced-form framework.
+Then \(\mathcal{S}\) attains \(H_{\mathrm{net}}\ge 3\) if and only if the following three conditions hold simultaneously:
+\begin{itemize}
+\item[\textbf{C1.}] Stable dyadic cooperation:
+pairwise-dominant cooperative interaction sustains the \(N^2\) backbone.
+\item[\textbf{C2.}] Cumulative intergenerational inheritance:
+coordination protocols are transmitted across generations with fidelity sufficient for relay extension.
+\item[\textbf{C3.}] External symbolic memory:
+storage capacity exceeds unaided biological memory,
+enabling relay requirements to persist beyond individual lifetimes.
+\end{itemize}
+\end{theorem}
+
+The theorem is predictive rather than retrospective.
+Any lineage lacking one of these three conditions is bounded at \(H\le 2\),
+regardless of local intelligence,
+brain size,
+or social sophistication.
+The SI proof makes this claim stronger,
+not weaker:
+it shows that the three primitives are pairwise logically independent,
+so no two-condition surrogate suffices.
+The human branch closes because the three-way conjunction closes.
+
+This is also the right place to state a scope boundary that matters for the present reframe.
+The Humanness theorem gives a sufficient and necessary condition for the human \(H{=}3\) substrate,
+that is,
+for the first fully civilizational rung.
+It does \emph{not} specify the necessary condition for the prospective \(H{=}7\) substrate.
+The present paper therefore uses the theorem to lock the lower human branch,
+not to identify the next carrier.
+That identification problem is postponed deliberately.
+For the full necessity/sufficiency proof and its scope qualification,
+see SI Appendix~\ref{sec:S-HumannessTheoremProof}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.48\textwidth]{fig_humanness_species_ladder.pdf}
+\caption{
+\textbf{Species \(H\)-ladder predicted by the Humanness theorem.}
+Effective relay depth \(H_{\mathrm{eff}}\) for extant and fossil lineages plotted against the conditions \(C_1\)--\(C_3\).
+\emph{H.~sapiens} (\(H\ge 3\), all conditions satisfied) is the unique lineage reaching the civilizational relay axis.
+Cetaceans (\(H_{\mathrm{eff}}\le 2\),
+\(C_3\) absent),
+great apes (\(H\approx 2.0\)--\(2.3\),
+\(C_2\) partial),
+eusocial insects (\(H{=}2^{\ast}\),
+starred superorganism route),
+and corvids (\(H\approx 1.5\)--\(2.0\)) occupy predictable positions below the \(H{=}3\) threshold.
+}
+\label{fig:h_ladder}
+\end{figure}
+
+% ================================================================
+\section{H-acceleration law}\label{sec:h_accel_subsec}
+
+Once the ladder exists,
+its waiting times are not arbitrary.
+The historical intervals between successive rung advances compress approximately log-linearly,
+which is why the ladder is not merely ordinal but temporally predictive.
+In V64,
+we read this law more carefully than in V63.
+It is not a substrate-specific prophecy.
+It is the internal time constant of the present rung,
+written in secular form.
+
+\begin{equation}
+\log_{10}\tau_H = \alpha_0 - \rho H,
+\qquad
+\tau_H = \tau_0 q^H,
+\qquad
+\tau_0 := 10^{\alpha_0},
+\quad
+q := 10^{-\rho},
+\label{eq:h_accel}
+\end{equation}
+where \(\tau_H\) denotes the waiting time for the transition
+\(H\to H+1\),
+\(\tau_0\) is the \(H{=}0\) intercept,
+and \(\rho\) is the per-rung log-compression slope.
+Using the four anchor pairs retained in the SI falsifiability protocol,
+ordinary least squares in
+\(\log_{10}\tau\)
+space yields
+\(\hat{\tau}_0\approx 70\,\mathrm{kyr}\)
+and
+\(\hat{\rho}\approx 0.84\),
+equivalently
+\(\hat q\approx 0.145\).
+Residual-bootstrap propagation over the same anchor set gives a forecast window
+\([2028.4,2034.4]\)~CE,
+with central value
+\(2031.4\)~CE.
+Evaluated locally,
+Eq.~\eqref{eq:h_accel} gives
+\(\tau_{6\to 7}=\tau_0q^6\approx 0.64\)~yr.
+Cumulative propagation then places the next candidate transition at 2031.4~CE.
+
+The interpretive shift in V64 is that 2031.4~CE is not read as a direct name for the next substrate.
+It is read as the date at which the present \(H{=}6\) regime ceases to have a long internal residence time on civilizational scales.
+In that sense,
+Eq.~\eqref{eq:h_accel} is a saturation law for the current rung.
+A prospective phase transition may follow,
+but the equation itself does not tell us what realizes the next carrier.
+It tells us only that indefinite metastability of \(H{=}6\) is incompatible with the compressed historical sequence if the ladder continues.
+
+This date is therefore best described as a candidate
+\(H{=}6\to H{=}7\)
+transition time,
+not an accomplished fact.
+Whether the system actually advances,
+stagnates,
+or collapses depends on the route structure summarized in Section~6.
+The present paper keeps the temporal statement and withholds the substrate statement.
+That division is deliberate.
+
+\footnote{Eq.~\eqref{eq:h_accel} defines the semilog secular compression law with headline date
+\(t_{6\to 7}=2031.4\)~CE.
+A local Kramers completion geometry
+\((\topen,\thalf)\approx(2024.3,\,2036\pm 8)\),
+derived in Appendix~\ref{sec:S-K10Hist} via Eq.~\eqref{eq:a1b_kramers},
+describes regime-interior opening and half-completion and is not a replacement of the secular forecast.
+Robustness envelope:
+see Appendix~\ref{sec:S-Eq2-Sensitivity}.}
+
+\begin{figure*}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_7regime_timeline.pdf}
+\caption{
+\textbf{Historical timeline mapped to the relay-ceiling framework.}
+Top panel:
+world population trajectory with regime boundaries and relay-depth annotations from the ladder start to the present frontier.
+Bottom panel:
+ceiling sequence
+\(\Omega_{\mathrm{compete}}\to\Omega_{\mathrm{land}}\to\Omega_{\mathrm{food,pre}}\to\Omega_{\mathrm{food,post}}\to\Omega_{\mathrm{social}}\to\Omega_{\mathrm{longlife}}\)
+with key historical events
+(agricultural revolution,
+irrigation civilizations,
+Axial Age,
+Industrial Revolution,
+and the 1963 demographic inflection).
+The two realized collapse windows are shaded,
+and the 1963--1992 near-miss is marked.
+The dashed future extension denotes only a prospective next rung,
+not a substrate-specific claim.
+}
+\label{fig:timeline}
+\end{figure*}
+
+% ================================================================
+\section{Empirical anchors}
+
+\subsection{Six realized regimes and the non-terminal status of \(H{=}6\)}
+
+The 70,000-year trajectory divides into six realized \(\Omega\)-regimes,
+as shown in Fig.~\ref{fig:trajectory} and Table~\ref{tab:segments}.
+These are not the ladder itself,
+but they are the empirical windows in which the ladder becomes visible in population history.
+Read together with the milestone ledger,
+they show that the present rung is historically late,
+not terminal.
+
+\begin{table}[htbp]
+\centering
+\caption{
+Six realized \(\Omega\)-regimes in the 70,000-year world-population trajectory under the exogenous-\(V_F\) model.
+The rightmost column states the ladder reading of each regime rather than treating the regime labels as self-explanatory historical periods.
+HG, hunter-gatherer.
+}
+\label{tab:segments}
+\begin{tabular}{clccl}
+\toprule
+\# & \(\Omega\)-regime & Period & Local slope & Ladder reading \\
+\midrule
+1 & \(\Omega_{\mathrm{compete}}\)   & \(-\)70k to \(-\)25k & 3.90 & ladder start, early \(H{=}1\) growth \\
+2 & \(\Omega_{\mathrm{land}}\)      & \(-\)25k to \(-\)10k & 0.50 & pre-H3 stall corridor, \(H{=}1\) interior \\
+3 & \(\Omega_{\mathrm{food,pre}}\)  & \(-\)10k to \(-\)5k  & 0    & agrarian nucleation corridor, \(H{=}2\) closure \\
+4 & \(\Omega_{\mathrm{food,post}}\) & \(-\)5k to \(-\)888  & 3.03 & literate urban relay, \(H{=}3\) interior \\
+5 & \(\Omega_{\mathrm{social}}\)    & \(-\)888 to 1963      & \(\sim\!1\) & industrial and informational laddering, \(H{=}4\) to \(H{=}5\) \\
+6 & \(\Omega_{\mathrm{longlife}}\)  & 1963--present          & 0.24 & present frontier saturation, \(H{=}6\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sequence remains structurally asymmetric.
+The earliest regime,
+\(\Omega_{\mathrm{compete}}\),
+is the steepest because pairwise interaction is least ceiling-constrained just after the first relay-bearing basin forms.
+The middle pair,
+\(\Omega_{\mathrm{food,pre}}\) and
+\(\Omega_{\mathrm{food,post}}\),
+record the agrarian bottleneck and its irrigation-mediated release.
+The long
+\(\Omega_{\mathrm{social}}\) regime contains both realized major collapse windows,
+which is why exogenous
+\(V_F\)
+is indispensable.
+The present
+\(\Omega_{\mathrm{longlife}}\) regime is the only one in which the demographic multiplier itself becomes a first-order ceiling,
+which is why the post-1963 slowdown must be interpreted as a rung-specific internal timescale rather than as simple exhaustion.
+
+\subsection{Paleolithic 70,000-year simulation}\label{sec:paleo-70ky}
+
+The deepest empirical support for the ladder claim is not modern.
+It is Paleolithic.
+On the source-faithful reading of the SI,
+\(H{=}0\) is a boundary-side state:
+anatomically modern humans exist,
+but no stabilized serial relay layer has yet formed.
+The transition to \(H{=}1\) belongs to the behavioral-modernity window,
+roughly 70--50~ka,
+when language,
+symbolic cognition,
+and long-range exchange become historically legible.
+This is why the earliest in-chain state is not placed at the biological origin of \emph{Homo sapiens},
+but at the later stabilization of the first relay-bearing basin.
+
+The next step,
+\(H{=}1\to 2\),
+is anchored by the Neolithic transition around 10~kyr BCE.
+Here the main population signal is the prolonged pre-irrigation bottleneck.
+Agriculture changes settlement form before it raises scalable carrying capacity,
+which is why the \(\Omega_{\mathrm{food,pre}}\) regime looks flat in population space while remaining dynamically decisive in ladder space.
+The first agrarian rung is therefore not identified by explosive growth,
+but by the creation of a new relay substrate whose ceiling has not yet been released.
+
+The \(H{=}2\to 3\) transition closes only when external symbolic memory becomes operationally real.
+This is the decisive role of the
+\(C_3\)
+gate.
+The \(-\)5k BCE changepoint is best read as a single statistical signature with a double mechanism:
+a food-ceiling release on the one hand,
+and the later closure of literate urban institutions on the other.
+Under the bifurcation-kernel reading,
+\(C_2\)
+acts as the continuous order parameter,
+while
+\(C_3\)
+acts as the hard gate.
+That is why the Sapiens--Neanderthal difference is not coded as ``more intelligence'' but as gate crossing versus stall.
+The 70,000-year simulation thus does more than supply a long-run background.
+It shows that
+\(H{=}0\to 1\to 2\to 3\)
+is a genuine emergence trajectory rather than a retrospective taxonomy.
+A full anchor ledger and sensitivity analysis are deferred to SI Appendix~\ref{sec:S-70ky}.
+
+\subsection{Backward validation against the fossil and ethological record}\label{sec:backward}
+
+The Humanness theorem can be checked backward against both fossil hominins and extant non-human lineages.
+\emph{H.~sapiens}
+satisfies
+\(C_1\wedge C_2\wedge C_3\),
+so the theorem predicts native
+\(H\ge 3\),
+which is exactly what the writing-and-urbanisation closure records.
+Neanderthals satisfy
+\(C_1\),
+partially satisfy
+\(C_2\),
+and lack
+\(C_3\),
+placing them in the pre-H3 stall corridor.
+Denisovans and
+\emph{H.~erectus}
+fall lower on the same logic.
+Among extant species,
+no candidate lineage that lacks
+\(C_3\)
+reaches the civilizational threshold,
+which is the negative prediction the theorem requires.
+
+These are not ornamental comparisons.
+They matter because they separate the present ontology from a purely data-fitting chronology.
+If a lineage with no external symbolic memory were shown to sustain
+\(H\ge 3\),
+the theorem would fail.
+Conversely,
+a secure archive or writing-like system for Neanderthals would force immediate reassessment of their position on the ladder.
+This is precisely the kind of falsifiability that makes the ladder structural rather than definitional.
+The proof,
+the pairwise-independence construction,
+and the fossil matrix are all collected in SI Appendix~\ref{sec:S-HumannessTheoremProof}.
+
+\subsection{Simulation accuracy and model comparison}\label{sec:accuracy}
+
+The exogenous-\(V_F\) main run
+(\(L_{\mathrm{pop}}=1\) throughout)
+achieves
+\(\mathrm{RMS}_{\log_{10}}=0.15\)
+and
+\(R^2=0.976\)
+on the 28-point calibration panel,
+with pre-1963
+\(\mathrm{RMS}\approx 0.07\).
+Out-of-sample prediction at
+\(-\)25,000~BCE is
+\(N_{\mathrm{pred}}=3.1\)~M versus
+\(N_{\mathrm{obs}}=3.3\)~M,
+an error below 7\% despite the point lying 15,000 years outside the formal training window.
+When the modern demographic multiplier is switched on,
+\(R^2\) rises to
+0.998 and the 2024 prediction improves to
+\(8{,}020\)~M versus
+\(8{,}100\)~M.
+The gain is localized where it should be:
+the demographic multiplier refines the modern tail,
+while the collapse rule is what unlocks the entire long-run fit.
+
+Nested model comparison confirms the same point.
+The sharp structural transition is not from a small parameter tweak,
+but from the introduction of collapse mechanics.
+Models lacking the threshold rule cannot fit a trajectory containing two centuries-long demographic recessions,
+whereas the collapse-enabled model immediately jumps to
+\(R^2=0.995\).
+The demographic multiplier then improves only the modern tail,
+not the existence of the ladder itself.
+
+\begin{table}[htbp]
+\centering
+\caption{
+Nested model comparison for the 28-point calibration dataset in
+\(\log_{10}\)
+space.
+\(k\) = number of free parameters,
+RSS = residual sum of squares.
+AIC\(_c\) is the small-sample corrected Akaike criterion.
+\(\Delta\)AIC\(_c\) and
+\(\Delta\)BIC are relative to the best model
+(M4).
+}
+\label{tab:aic}
+\begin{tabular}{llccccccc}
+\toprule
+Model & Components & \(k\) & \(R^2\) & AIC & AIC\(_c\) & BIC & \(\Delta\)AIC\(_c\) & \(\Delta\)BIC \\
+\midrule
+M0 & Backbone only & 1 & \(<0\) & 91.8 & 92.0 & 93.1 & 240.0 & 238.0 \\
+M1 & \(+\,K_{\mathrm{HG}}\) & 2 & \(<0\) & 74.5 & 75.0 & 77.2 & 223.0 & 222.1 \\
+M2 & \(+\,V_F(t)\) & 4 & \(<0\) & 78.5 & 80.2 & 83.9 & 228.3 & 228.8 \\
+M3 & \(+\) Collapse & 6 & 0.995 & \(-138.7\) & \(-134.7\) & \(-130.7\) & 13.3 & 14.2 \\
+\textbf{M4} & \textbf{\(+\,L_{\mathrm{pop}}\)} & \textbf{8} & \textbf{0.998} & \textbf{\(-155.6\)} & \textbf{\(-148.0\)} & \textbf{\(-144.9\)} & \textbf{0.0} & \textbf{0.0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ================================================================
+\section{Forecast}
+
+The forecast window
+\([2028.4,2034.4]\)~CE
+should be read as the candidate interval in which the present
+\(H{=}6\)
+regime must reveal whether it is genuinely non-terminal.
+At the level of the present ontology,
+there are only three broad outcomes:
+terminal failure,
+stationary arrest,
+or successful advance.
+The 2031.4~CE central date is therefore not an isolated prediction.
+It is the point at which those possibilities become empirically separable.
+
+To avoid confusion with the historical Col1/Col2 collapse labels already used for Roman and medieval resets,
+we denote the prospective alternatives as route I,
+route II,
+and route III.
+
+\begin{table}[htbp]
+\centering
+\caption{
+Prospective alternatives for the present \(H{=}6\) frontier.
+These are future-route labels,
+not the historical Col1/Col2 collapse windows already realized within
+\(\Omega_{\mathrm{social}}\).
+}
+\label{tab:forecast_routes}
+\begin{tabular}{p{2.3cm}p{4.1cm}p{7.0cm}}
+\toprule
+Route & Structural reading & Meaning in the ladder ontology \\
+\midrule
+I & Malthusian collapse & demographic/resource exhaustion blocks further relay advance and forces failure before a new rung stabilizes \\
+II & Technological arrest & \(H{=}6\) behaves as a stable endpoint, so the compression law terminates and Eq.~\eqref{eq:h_accel} is falsified \\
+III & Ladder inversion / retrogression & the present carrier loses relay capacity and the system falls back toward \(H\le 5\) rather than sustaining the current frontier \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These three routes are exhaustive at the reduced-form level used here.
+If route~I is realized,
+the ladder fails by collapse.
+If route~II is realized,
+the ladder fails by stable arrest.
+If route~III is realized,
+the ladder fails by inversion.
+Only when all three are excluded does the argument become one of structural necessity:
+a further rung is then the only surviving continuation of the historical ontology.
+That inference is strong,
+but it is not substrate-specific.
+It says that \(H{=}6\) cannot be the last rung if the system neither collapses,
+freezes,
+nor retreats.
+It does not say what material or institutional form the next rung must take.
+The prospective route logic and its reject-if-observed clauses are deferred to SI Appendix~\ref{sec:S-Collapse3Routes}.
+
+The present paper therefore makes a sharply falsifiable forecast.
+Persistence of the current rung beyond the upper bound of the window,
+without discrete advance,
+counts against the secular acceleration law.
+By contrast,
+an observable transition inside the window would support the claim that
+\(H{=}6\)
+was a metastable frontier rather than a civilizational endpoint.
+The paper is thus not committed to optimism.
+It is committed to a narrow structural claim:
+late-history timing is precise enough that the ontology can now be tested prospectively.
+
+% ================================================================
+\section{Discussion}
+
+The central gain of the V64 reframe is that the paper no longer reads as a loose mixture of singularity theory,
+demographic transition,
+and speculative frontier timing.
+It reads instead as a single structural argument.
+The 70,000-year record is organized by one pairwise backbone,
+its realized states are discrete,
+and the discreteness is not imposed after the fact.
+The pre-H3 stall corridor,
+the exogenous-ceiling theorem,
+the two realized historical collapse windows,
+and the milestone cross-check all converge on the same conclusion:
+civilization history is better read as ladder ontology than as a smooth one-parameter growth curve.
+
+This also clarifies the paper's place among existing traditions.
+Malthusian thinking is recovered whenever the active constraint is food capacity.
+Unified growth theory is recovered whenever population pressure forces a ceiling replacement.
+Cliodynamic collapse theory is recovered whenever social-friction overshoot dominates.
+What the present paper adds is the state variable those traditions usually leave implicit:
+the rung itself.
+Once rung selection is made explicit,
+"why the singularity failed" and
+"why the next ceiling matters"
+become the same question.
+
+The V64 framing is intentionally narrower than V63 on one point.
+It does not attempt to identify the next carrier in the main text.
+That is not because the question is unimportant.
+It is because the present paper can already make a strong claim without answering it.
+The non-terminal status of
+\(H{=}6\)
+follows from the joint structure of the ladder,
+the waiting-time compression law,
+and the collapse/arrest alternatives.
+That is the load-bearing result.
+Everything else is a realization problem layered on top of it.
+
+\subsection*{Open question: the \(H{=}7\) substrate}\label{sec:open-h7-substrate}
+
+The present paper therefore stops at a deliberate boundary.
+It argues that a prospective
+\(H{=}7\)
+regime is structurally required if the ladder continues,
+but it does not identify the substrate that would support that rung.
+The candidate space is intentionally left broad:
+biological uplift,
+a technological substrate,
+a hybrid carrier,
+or some other presently unclassified realization all remain admissible at the level of this paper.
+The argument here is only that the ontology has another rung,
+not that the realizing material is already known.
+Detailed substrate analysis is the subject of Paper~5~\cite{Kato2026e}.
+
+\subsection*{Falsifiability}
+
+The reframe sharpens rather than weakens falsifiability.
+The ladder fails if the 70,000-year record is better described by a smooth closure with no discrete gate structure,
+if the exogenous ceiling can be endogenized without knife-edge instability and collapse-count explosion,
+if the Humanness theorem is broken by a lineage lacking one of
+\(C_1\),
+\(C_2\),
+and
+\(C_3\),
+or if the present
+\(H{=}6\)
+state persists well beyond the forecast window without either discrete advance or a route-I/II/III failure pattern.
+That is a demanding standard,
+but it is also what makes the present ontology more than a metaphor.
+It is a historical structure with explicit reject-if-observed clauses.
+
+% ================================================================
+\section{Methods}
+
+\paragraph{Data.}
+The 28-point calibration panel is a harmonized anchor-point reconstruction rather than a uniform census series.
+Its historical scaffold is the corrected Biraben world-population table,
+cross-checked against McEvedy and Jones for consistency of premodern levels and turning points;
+late modern anchors are taken from United Nations World Population Prospects 2022~\cite{biraben1979,mcevedy1978,unwpp2022}.
+HYDE 3.2 is used only as an external robustness comparator for 10,000~BCE--1850~CE,
+not to construct the fitted panel,
+and the Thomlinson estimate at
+\(-\)25,000~BCE is used only for out-of-sample validation~\cite{goldewijk2017,thomlinson1975}.
+The documented cleaning step is downward revision of three early Biraben anchors
+(\(-\)8000:
+8\(\to\)5~M;
+\(-\)5000:
+15\(\to\)5~M;
+\(-\)3000:
+30\(\to\)14~M)
+to maintain consistency with the hunter-gatherer ceiling
+\(K_{\mathrm{HG}}=5\)~M,
+with all values expressed in millions;
+the full correction log with provenance is archived in the reproducibility repository.
+The model is fit to the discrete 28 anchors themselves,
+not to an interpolated annual series.
+Premodern anchors should therefore be read as reconstructed estimates rather than direct observations:
+pre-agricultural points
+(\(-\)70k to \(-\)10k)
+carry factor 2--5 uncertainty and are used qualitatively only~\cite{hassan1981,ambrose1998},
+whereas retained pre-1500 anchors are treated conservatively as roughly factor-of-two uncertain;
+post-1800 UN-based anchors are substantially tighter.
+
+\paragraph{Model.}
+The backbone law is Eq.~\eqref{eq:backbone},
+\(dN/dt=a_0N^2\),
+with
+\(a_0=4.74\times 10^{-12}\)
+and
+\(N\)
+measured in millions.
+The model is organized in two levels.
+Level~1,
+which is the level analyzed in the present paper,
+uses the exogenous reduced-form social-friction envelope
+\begin{equation}
+V_F(t)=C(t_c-t)^{-\alpha},
+\end{equation}
+with fitted
+\((C,\alpha,t_c)\)
+and threshold dynamics governed by
+\((x_{\mathrm{on}},x_{\mathrm{off}})\).
+This exogeneity claim is falsifiable rather than definitional:
+any endogenous closure
+\(V_F=f(N,\Omega)\)
+that simultaneously
+(a) reproduces exactly two collapse episodes,
+(b) matches the 28-point calibration at
+\(R^2>0.97\),
+and
+(c) retains Jacobian condition number
+\(\kappa(J)<10^4\)
+would refute the theorem-plus-simulation package reported here.
+
+To represent the post-1963 fertility transition in reduced form,
+the full model introduces a time-dependent demographic multiplier
+\(L_{\mathrm{pop}}(t)\).
+We set
+\(L_{\mathrm{pop}}(t)=1\)
+for
+\(t<1963\).
+For
+\(t\ge 1963\),
+\(L_{\mathrm{pop}}\)
+follows a logistic decline toward a long-run floor,
+\begin{equation}
+\frac{dL_{\mathrm{pop}}}{dt}
+=r_L\,L_{\mathrm{pop}}(t)\!\left(1-\frac{L_{\mathrm{pop}}(t)}{L_{\mathrm{floor}}}\right),
+\qquad
+L_{\mathrm{pop}}(1963)=1,
+\label{eq:lpop_ode}
+\end{equation}
+with
+\(L_{\mathrm{floor}}=0.52\)
+and
+\(r_L=0.01328\),
+implying a 75-year characteristic transition timescale consistent with post-1963 global data.
+When
+\(L_{\mathrm{pop}}<1\),
+the effective exponent of the backbone law drops to
+\begin{equation}
+p_{\mathrm{eff}}(t):=p\times L_{\mathrm{pop}}(t),
+\label{eq:peff}
+\end{equation}
+so that
+\(p_{\mathrm{eff}}\to 2\times 0.52=1.04\)
+as
+\(t\to\infty\).
+This explains the apparent post-1950 drop from
+\(p=2\)
+to
+\(p\approx 1\)
+without any structural exponent change:
+the demographic transition suppresses the multiplicative growth factor,
+not the interaction law itself.
+The collapse-enabled full model is
+\begin{equation}
+\frac{dN}{dt}
+=a_0\,N(t)^2L_{\mathrm{pop}}(t)
+\left(1-\frac{N(t)}{\min\{K(t),V_F(t)\}}\right)\chi(t),
+\label{eq:full_model}
+\end{equation}
+where
+\(\chi(t)\in\{0,1\}\)
+is the collapse-state indicator governed by hysteretic thresholds.
+The main text reports the simpler exogenous-\(V_F\) run with
+\(L_{\mathrm{pop}}=1\)
+throughout;
+the
+\(L_{\mathrm{pop}}\)-enabled specification is retained as the full model used for validation of the modern slowdown.
+
+\paragraph{Validation.}
+Validation uses six independent checks.
+First,
+segment-wise RMS decomposition prevents single-segment overfitting;
+the preserved decomposition is HG:
+0.000,
+Food:
+0.022,
+Social:
+0.056,
+Modern:
+0.034.
+Second,
+the model predicts
+\(N_{\mathrm{pred}}=3.1\)~M at
+\(-\)25,000~BCE versus
+\(N_{\mathrm{obs}}=3.3\)~M,
+an out-of-sample error below 7\%.
+A systematic out-of-sample test with a pre-1800 training cutoff
+(18 pre-industrial points)
+yields
+\(R^2_{\mathrm{test}}=0.81\)
+and predicts 2024 world population within 3.1\%.
+Third,
+cross-dataset robustness is checked against HYDE 3.2 for 10,000~BCE--1850~CE~\cite{goldewijk2017}.
+Fourth,
+free-\(p\)
+estimation over 1000~BCE--1963~CE yields
+\(p=2.14\),
+while
+\(\Delta\mathrm{AIC}=+383\)
+versus exponential growth provides decisive evidence for the
+\(N^2\)
+backbone.
+Fifth,
+leave-one-out cross-validation yields median absolute percentage error 3.5\% and mean 7.4\%,
+confirming that no single calibration point drives the fit.
+Sixth,
+nested AIC\(_c\)/BIC model selection confirms that the full model
+(M4,
+\(k=8\) parameters)
+is optimal,
+with
+\(\Delta\mathrm{AIC}_c=13.3\)
+relative to M3.
+
+\paragraph{Numerics.}
+Collapse begins when
+\(N/V_F\ge x_{\mathrm{on}}\)
+and ends when
+\(N/V_F\le x_{\mathrm{off}}\).
+During collapse,
+the main reported run freezes population at
+\(dN=0\).
+The endogenous-\(V_F\) falsification family used in the SI is sampled from smooth positive monotone closures and accepted only when solver convergence and collapse counts are stable under step-halving and tighter tolerances.
+
+\paragraph{Statistics.}
+All reported comparisons include effect sizes
+(\(R^2\) for variance explained,
+\(\Delta\mathrm{AIC}_c\) and
+\(\Delta\mathrm{BIC}\) for nested model selection),
+exact sample sizes
+(\(n=28\) calibration anchors unless stated otherwise),
+95\% confidence intervals from case-bootstrap resamples,
+and exact
+\(P\)
+values from sequential
+\(F\)-tests.
+Cohen's
+\(d\)
+equivalents are not applicable to single-trajectory reduced-form fits;
+the primary effect-size metric is the proportional variance explained and the model-comparison information loss.
+
+% ================================================================
+\section*{Acknowledgments}
+The author thanks the anonymous reviewers for their comments.
+
+\bibliographystyle{unsrt}
+\bibliography{paper3_refs_V13}
+
+\section*{Author contributions}
+S.K. conceptualized the study,
+developed the methodology,
+performed formal analysis,
+wrote the original draft,
+and prepared all visualizations.
+
+\section*{Competing interests}
+The author declares no competing interests.
+
+\section*{Data availability}
+Historical population reconstructions used in this study are drawn from Biraben (1979, 2003),
+McEvedy and Jones (1978),
+and the United Nations World Population Prospects 2022.
+The corrected 28-point calibration table with full correction provenance,
+the Python simulation code,
+figure-generation notebooks,
+and all parameter files will be deposited in a Zenodo repository upon acceptance
+(DOI:
+\texttt{10.5281/zenodo.XXXXXXX}).
+No proprietary data were used.
+
+\section*{Code availability}
+The Python simulation code,
+figure-generation notebooks,
+and shell scripts to reproduce all main-text and SI figures will be deposited in the same Zenodo repository
+(DOI:
+\texttt{10.5281/zenodo.XXXXXXX}).
+
+\section*{Figure legends}
+
+\paragraph{Figure~3 $\vert$ Species ladder and the \(H{=}3\) threshold.}
+Figure~3 visualizes the Humanness theorem as a species-level classification problem.
+The key point is not the exact continuous coordinate of any one non-human lineage,
+but the hard threshold at
+\(H{=}3\):
+without the full conjunction
+\(C_1\wedge C_2\wedge C_3\),
+no lineage reaches the civilizational relay axis.
+
+\paragraph{Figure~4 $\vert$ Historical timeline and the non-terminal status of the present rung.}
+Figure~4 aligns the six realized
+\(\Omega\)-regimes with the relay-ceiling reading of the historical record.
+The dashed future extension should be read as a prospective rung boundary,
+not as a substrate-specific claim.
+Its role is to make visible the non-terminal status of the present
+\(H{=}6\)
+regime under Eq.~\eqref{eq:h_accel}.
+
+\section*{Pre-registration}
+The present study is an analysis of historical reconstructed population data;
+no prospective experimental protocol was registered,
+and pre-registration is therefore not applicable.
+All analysis choices are stated explicitly in the main text and SI and are reproducible from the deposited code.
+
+\end{document}
+% （以上で Paper 3 main V64 Kato Ladder Civilizational Ontology reframe 本文 終了）

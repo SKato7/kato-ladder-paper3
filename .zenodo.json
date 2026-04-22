@@ -1,0 +1,41 @@
+{
+  "title": "Kato Ladder: Seventy Thousand Years of Human Coordination and a Civilizational Ontology of Six Realized Phase Transitions — Paper 3 submission snapshot",
+  "description": "Reproducibility archive for Paper 3 (NHB submission). Includes main manuscript (V65), Supplementary Information (V76), reference bibliography (V13), cover letter (V17), significance statement (V1), title page (V4), graphical abstract (V1, vector + raster), and figures Fig. 1–4. Data directory contains the 28-anchor compressed-timeline backbone and the Eq.(2) rank-2 sensitivity envelope output; code directory contains the build scripts for the graphical abstract and for the Fig. 3 / Fig. 4 panels. Seven-axis falsifier battery raw outputs are included for replication of the [2028.4, 2034.4] CE forecast window.",
+  "upload_type": "publication",
+  "publication_type": "article",
+  "creators": [
+    {
+      "name": "Kato, Shota",
+      "affiliation": "AI and Future Co., Ltd., Tokyo, Japan",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "keywords": [
+    "coordination hierarchy",
+    "Kato equation",
+    "civilizational ceiling",
+    "H=7 nucleation",
+    "Humanness theorem",
+    "falsifiable forecast",
+    "Kato ladder",
+    "phase transition",
+    "complex systems"
+  ],
+  "access_right": "open",
+  "license": "CC-BY-4.0",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/SKato7/kato-ladder-paper3",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "10.5281/zenodo.19653799",
+      "relation": "isPartOf",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "NHB initial submission snapshot. Data deposit + code deposit bundled in a single repository (1-deposit mode). If 2-deposit separation is requested, split data/ and code/ into separate repos before GitHub push; both modes are supported by the directory layout. ORCID placeholder will be finalized before Release publish."
+}
